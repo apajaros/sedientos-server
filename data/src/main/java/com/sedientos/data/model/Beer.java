@@ -10,6 +10,8 @@ public class Beer {
     private GlassSize glassSize;
     private BigDecimal price;
 
+    public Beer() {}
+
     public Beer(GlassSize glassSize, BigDecimal price) {
         this.glassSize = glassSize;
         setPrice(price);
