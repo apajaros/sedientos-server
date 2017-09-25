@@ -3,6 +3,7 @@ package com.sedientos.restapi.configuration;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoURI;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -20,9 +21,12 @@ import java.util.Collection;
 @EnableMongoRepositories(basePackages = { "com.sedientos.data.repository" })
 public class MongoConfiguration extends AbstractMongoConfiguration {
 
+    @Value("${mongo.uri}")
+    private String mongoURI;
+
     public @Bean
     MongoDbFactory mongoDbFactory() throws Exception {
-        MongoClientURI mongoClientURI = new MongoClientURI("mongodb://sed:kx6z0ecatmWIF8j1TqeJ@ds119524.mlab.com:19524/sedientosdb");
+        MongoClientURI mongoClientURI = new MongoClientURI(mongoURI);
         return new SimpleMongoDbFactory(mongoClientURI);
     }
 

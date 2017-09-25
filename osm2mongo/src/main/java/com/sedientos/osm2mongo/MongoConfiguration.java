@@ -1,6 +1,7 @@
 package com.sedientos.osm2mongo;
 
 import com.mongodb.MongoClientURI;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -12,9 +13,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories()
 public class MongoConfiguration {
 
+    @Value("${mongo.uri}")
+    private String mongoURI;
+
     public @Bean
     MongoDbFactory mongoDbFactory() throws Exception {
-        MongoClientURI mongoClientURI = new MongoClientURI("mongodb://sed:kx6z0ecatmWIF8j1TqeJ@ds119524.mlab.com:19524/sedientosdb");
+        MongoClientURI mongoClientURI = new MongoClientURI(mongoURI);
         return new SimpleMongoDbFactory(mongoClientURI);
     }
 
