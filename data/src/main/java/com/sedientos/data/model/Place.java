@@ -51,6 +51,7 @@ public class Place {
      * Open Street Maps ID
      */
     private long osmId;
+    private int osmVersion;
 
     public Place() {}
 
@@ -238,5 +239,13 @@ public class Place {
 
     public String getOpeningHours() {
         return openingHours;
+    }
+
+    public void setOsmVersion(int osmVersion) {
+        this.osmVersion = osmVersion;
+    }
+
+    public int getOsmVersion() {
+        return osmVersion;
     }
 }
