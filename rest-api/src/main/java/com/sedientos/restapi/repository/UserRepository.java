@@ -1,4 +1,4 @@
-package com.sedientos.data.repository;
+package com.sedientos.restapi.repository;
 
 import com.sedientos.data.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;

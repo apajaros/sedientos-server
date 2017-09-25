@@ -1,4 +1,4 @@
-package com.sedientos.data.repository;
+package com.sedientos.restapi.repository;
 
 import com.sedientos.data.model.Place;
 import org.springframework.data.geo.Box;
@@ -7,12 +7,12 @@ import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.query.Param;
-//import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.math.BigDecimal;
 import java.util.Collection;
 
-//@CrossOrigin
+@CrossOrigin
 public interface PlaceRepository extends MongoRepository<Place, String> {
 
     Collection<Place> findByLocationNear(@Param("point")Point point, @Param("max_distance") Distance maxDistance);

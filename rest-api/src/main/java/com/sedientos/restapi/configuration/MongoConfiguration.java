@@ -2,7 +2,6 @@ package com.sedientos.restapi.configuration;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoURI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +17,7 @@ import java.util.Collection;
 
 @Profile("default")
 @Configuration
-@EnableMongoRepositories(basePackages = { "com.sedientos.data.repository" })
+@EnableMongoRepositories(basePackages = {"com.sedientos.restapi.repository"})
 public class MongoConfiguration extends AbstractMongoConfiguration {
 
     @Value("${mongo.uri}")
