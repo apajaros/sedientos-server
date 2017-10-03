@@ -248,4 +248,8 @@ public class Place {
     public int getOsmVersion() {
         return osmVersion;
     }
+
+    public String getId() {
+        return id;
+    }
 }
