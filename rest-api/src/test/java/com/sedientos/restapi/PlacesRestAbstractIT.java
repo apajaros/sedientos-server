@@ -2,7 +2,6 @@ package com.sedientos.restapi;
 
 import com.sedientos.data.model.*;
 import com.sedientos.restapi.repository.PlaceRepository;
-import com.sedientos.restapi.repository.UserRepository;
 import org.junit.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Point;
@@ -30,8 +29,6 @@ public class PlacesRestAbstractIT {
     @Autowired
     private PlaceRepository placeRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     protected WebApplicationContext webApplicationContext;
 
     @Autowired
@@ -51,12 +48,9 @@ public class PlacesRestAbstractIT {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
         this.placeRepository.deleteAll();
-        this.userRepository.deleteAll();
 
         User aUser = new User("apajaros", "email@mail.com");
-        userRepository.save(aUser);
         User anotherUser = new User("Frodo", "frodo@hobbiton.com");
-        userRepository.save(anotherUser);
 
         Place aPlace = new Place();
         aPlace.setName("Ondiñas do Mendo");

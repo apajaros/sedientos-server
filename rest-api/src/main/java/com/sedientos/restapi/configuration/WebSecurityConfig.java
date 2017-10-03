@@ -22,7 +22,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(HttpMethod.GET, "/api/places/**")
+        web.ignoring().antMatchers(HttpMethod.GET, "/api/**")
                 .antMatchers(HttpMethod.OPTIONS, "/**");
     }
 
