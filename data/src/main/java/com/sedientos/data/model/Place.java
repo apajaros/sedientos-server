@@ -113,6 +113,9 @@ public class Place {
     }
 
     public List<Review> getReviews() {
+        if (this.reviews == null) {
+            this.reviews = new ArrayList<>();
+        }
         return reviews;
     }
 
@@ -122,10 +125,7 @@ public class Place {
 
 
     public void addReview(Review review) {
-        if (this.reviews == null) {
-            this.reviews = new ArrayList<>();
-        }
-        this.reviews.add(review);
+        this.getReviews().add(review);
     }
 
     @Override
