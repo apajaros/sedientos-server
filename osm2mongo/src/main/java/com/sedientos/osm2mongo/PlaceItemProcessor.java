@@ -75,7 +75,7 @@ public class PlaceItemProcessor implements ItemProcessor<NodeDTO, Place> {
         place.setAddress(getFullAddress(place));
         place.setBeers(generateRandomBeers());
         place.setReviews(generateRandomReviews());
-        place.setStars(calculateStars(place.getReviews()));
+        place.setStars(calculateAverageStars(place.getReviews()));
         log.debug("Created place {0}", place);
         return place;
     }
@@ -127,11 +127,7 @@ public class PlaceItemProcessor implements ItemProcessor<NodeDTO, Place> {
             while (r.nextDouble() > 0.1) {
                 review = new Review();
                 review.setBody(String.join(" ", Arrays.copyOfRange(words, 0, r.nextInt(words.length))));
-                int stars = r.nextInt(7);
-                if (stars > 5) {
-                    stars = 5;
-                }
-                review.setStars(stars);
+                review.setStars(generateStars(r));
                 String userName = words[r.nextInt(words.length)];
                 user = new User(userName, "email@world.org");
                 review.setUser(user);
@@ -143,9 +139,28 @@ public class PlaceItemProcessor implements ItemProcessor<NodeDTO, Place> {
         return reviews;
     }
 
-    private BigDecimal calculateStars(List<Review> reviews) {
+    /**
+     * Generate star values in interval [1, 5]
+     * @param r
+     * @return
+     */
+    private int generateStars(Random r) {
+        int stars = (int) Math.round(3 + r.nextGaussian()*2);
+        if (stars > 5) {
+            stars = 5;
+        } else if (stars < 1) {
+            stars = 1;
+        }
+        return stars;
+    }
+
+    /**
+     * Calculate the average of stars in the list of reviews.
+     * @param reviews
+     * @return
+     */
+    private BigDecimal calculateAverageStars(List<Review> reviews) {
         OptionalDouble average = reviews.stream()
-//                .map(r -> r.getStars())
                 .mapToInt(Review::getStars)
                 .average();
         if (average.isPresent()) {
