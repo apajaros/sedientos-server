@@ -1,5 +1,6 @@
 package com.sedientos.data.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -50,7 +51,9 @@ public class Place {
     /**
      * Open Street Maps ID
      */
+    @JsonIgnore
     private long osmId;
+    @JsonIgnore
     private int osmVersion;
 
     public Place() {}

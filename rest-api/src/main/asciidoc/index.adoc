@@ -1,0 +1,190 @@
+= RESTful Sedientos API Guide
+Andrés Pajarón;
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectlinks:
+:operation-curl-request-title: Example request
+:operation-http-response-title: Example response
+
+[[overview]]
+= Overview
+
+[[overview-http-verbs]]
+== HTTP verbs
+
+This RESTful API tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP verbs.
+
+|===
+| Verb | Usage
+
+| `GET`
+| Used to retrieve a resource
+
+| `POST`
+| Used to create a new resource
+
+| `PATCH`
+| Used to update an existing resource, including partial updates
+
+| `DELETE`
+| Used to delete an existing resource
+|===
+
+[[overview-http-status-codes]]
+== HTTP status codes
+
+This RESTful API tries to adhere as closely as possible to standard HTTP and REST conventions in its
+use of HTTP status codes.
+
+|===
+| Status code | Usage
+
+| `200 OK`
+| The request completed successfully
+
+| `201 Created`
+| A new resource has been created successfully. The resource's URI is available from the response's
+`Location` header
+
+| `204 No Content`
+| An update to an existing resource has been applied successfully
+
+| `400 Bad Request`
+| The request was malformed. The response body will include an error providing further information
+
+| `404 Not Found`
+| The requested resource did not exist
+|===
+
+[[overview-errors]]
+== Errors
+
+Whenever an error response (status code >= 400) is returned, the body will contain a JSON object
+that describes the problem. The error object has the following structure:
+
+include::{snippets}/error-example/response-fields.adoc[]
+
+For example, a request that attempts to apply a non-existent tag to a note will produce a
+`400 Bad Request` response:
+
+include::{snippets}/error-example/http-response.adoc[]
+
+[[overview-hypermedia]]
+== Hypermedia
+
+This RESTful API uses hypermedia and resources include links to other resources in their
+responses. Responses are in http://stateless.co/hal_specification.html[Hypertext Application
+from resource to resource.
+Language (HAL)] format. Links can be found beneath the `_links` key. Users of the API should
+not create URIs themselves, instead they should use the above-described links to navigate
+
+[[resources]]
+= Resources
+
+
+
+[[resources-index]]
+== Index
+
+The index provides the entry point into the service.
+
+
+
+[[resources-index-access]]
+=== Accessing the index
+
+A `GET` request is used to access the index
+
+operation::index[snippets='response-fields,http-response']
+
+
+
+
+[[resources-places]]
+== Places
+
+The Places resources is used to create and list places
+
+
+
+[[resources-places-list]]
+=== Listing places
+
+A `GET` request will list all of the service's places.
+
+operation::places-list-example[snippets='response-fields,curl-request,http-response,links']
+
+
+
+[[resources-places-retrieve]]
+=== Retrieving a place
+
+A `GET` request will retrieve the details of a place
+
+operation::places-get-example[snippets='response-fields,curl-request,http-response']
+
+
+
+
+[[resources-places-create]]
+=== Creating a place
+
+A `POST` request is used to create a place. The request must be authorized.
+
+operation::places-create-example[snippets='request-fields,curl-request,http-response']
+
+
+
+
+[[resources-places-search]]
+=== Search for places
+
+A `GET` request will retrieve a list of places with the given criteria
+
+==== Search by address
+operation::places-search-address-example[snippets='request-parameters,curl-request,http-response']
+
+==== Search by location
+operation::places-search-location-example[snippets='request-parameters,curl-request,http-response']
+
+==== Search by price
+operation::places-search-price-example[snippets='request-parameters,curl-request,http-response']
+
+==== Search by star rating
+operation::places-search-stars-example[snippets='request-parameters,curl-request,http-response']
+
+==== Search by area
+operation::places-search-within-example[snippets='request-parameters,curl-request,http-response']
+
+
+
+
+[[resources-reviews]]
+=== Reviews
+
+The Reviews resource is used to create and list the reviews of a place
+
+
+
+[[resources-reviews-list]]
+==== Listing reviews
+
+A `GET` request will list all of the service's reviews.
+
+operation::places-reviews-list-example[snippets='response-fields,curl-request,http-response,links']
+
+
+
+[[resources-reviews-create]]
+==== Creating a review
+
+A `POST` request is used to create a review for the given place. The request must be authorized, and the user name will be read from the Princial (although it is recomended to include the user data in the request fields as well).
+
+operation::places-reviews-create-example[snippets='request-fields,curl-request,http-response']
+
+
+
